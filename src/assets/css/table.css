@@ -1,0 +1,49 @@
+/* table样式覆盖 */
+.ivu-table {
+    background-color: rgba(42, 50, 82, 0.4);
+  }
+  
+  .ivu-table td {
+    background-color: transparent;
+  }
+  
+  .ivu-table th {
+    background-color: transparent;
+  }
+  
+  .ivu-table td,
+  .ivu-table th {
+    border-bottom: 1px solid rgba(106, 209, 254, 0.5);
+  }
+  
+  .ivu-table-wrapper {
+    border: 1px solid rgba(106, 209, 254, 0.5);
+    border-bottom: 0;
+    border-right: 0;
+  }
+  
+  .ivu-table-border td,
+  .ivu-table-border th {
+    border-right: 1px solid rgba(106, 209, 254, 0.5);
+  }
+  
+  .ivu-table:after {
+    background-color: rgba(106, 209, 254, 0.5);
+  }
+  
+  .ivu-table:before {
+    background-color: rgba(106, 209, 254, 0.5);
+  }
+  
+  .ivu-table {
+    color: rgba(191, 231, 255, 1);
+  }
+  
+  tr.ivu-table-row-hover td {
+    background-color: rgba(22, 143, 255, 1);
+  }
+  
+  .ivu-checkbox-inner {
+    background-color: transparent;
+    border: 1px solid rgba(106, 209, 254, 1);
+  }
