@@ -47,3 +47,7 @@
     background-color: transparent;
     border: 1px solid rgba(106, 209, 254, 1);
   }
+
+  tr.ivu-table-row-hover td {
+    background-color: rgba(22, 143, 255, .3)
+  }

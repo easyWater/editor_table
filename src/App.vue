@@ -15,8 +15,6 @@ export default {
 </script>
 
 <style lang="scss" style="text/css">
-@import url('./assets/css/init.css');
-@import url('./assets/css/table.css');
 html,
 body,
 #app {

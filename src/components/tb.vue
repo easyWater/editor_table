@@ -3,7 +3,7 @@
       <section class="normal-bg">
         <h3 class="item-head">可编辑表格</h3>
         <section class="item-content">
-          <Table :columns="cityColumns" border :data="citySituation"></Table>
+          <Table :columns="cityColumns" border :data="tbData"></Table>
         </section>
         <section class="btn-group">
             <Button type="info">取消</Button>
@@ -21,31 +21,64 @@ export default {
       cityColumns: [
         //全市警情
         {
-          title: "全市警情数量",
-          key: "city_alert_total",
+          title: "姓名",
+          key: "name",
           render: (h, params) => {
-            return this.renderRow(h, params, 'city_alert_total', 'citySituationCopy')        
+            return this.renderInput(h, params, 'name', 'tbDataCopy')        
           }
         },
         {
-          title: "全市诈骗警情数量",
-          key: "city_fraud_total",
+          title: "性别",
+          key: "gender",
           render: (h, params) => {
-            return this.renderRow(h, params, 'city_fraud_total', 'citySituationCopy')
+            // 0：男, 1：女
+            // return this.renderRadio(h, params, 'gender', 'tbDataCopy')
+            if(params.row.edit) {
+              return h('RadioGroup', {
+                props: {
+                  value: params.row.gender
+                },
+                on: {
+                  'on-change': (val) => {
+                    this.tbDataCopy[params.index].gender = val
+                  }
+                }
+              },[
+                h('Radio', {
+                  props: {
+                    label: 0
+                  }
+                }, '男'),
+                h('Radio', {
+                  props: {
+                    label: 1
+                  }
+                }, '女')
+              ])
+            }else {
+              return h('span', {}, params.row.gender === 0 ? '男' : '女')
+            }
           }
         },
         {
-          title: "全区警情数量",
-          key: "alert_total",
+          title: "出生日期",
+          key: "birthday",
           render: (h, params) => {
-              return this.renderRow(h, params, 'alert_total', 'citySituationCopy')
+              // return this.renderDate(h, params, 'birthday', 'tbDataCopy')
           }
         },
         {
-          title: "全区诈骗警情数量",
-          key: "fraud_total",
+          title: "所在城市",
+          key: "city",
           render: (h, params) => {
-              return this.renderRow(h, params, 'fraud_total', 'citySituationCopy')
+              // return this.renderSelect(h, params, 'city', 'tbDataCopy')
+          }
+        },
+        {
+          title: "爱好",
+          key: "hobby",
+          render: (h, params) => {
+              // return this.renderMulSelect(h, params, 'hobby', 'tbDataCopy')
           }
         },
         {
@@ -64,8 +97,8 @@ export default {
                     on: {
                       click: () => {
                         //数据改变
-                        for (let key in this.citySituationCopy[params.index]) {
-                            params.row[key] = this.citySituationCopy[params.index][key];
+                        for (let key in this.tbDataCopy[params.index]) {
+                            this.tbData[params.index][key] = this.tbDataCopy[params.index][key];
                         }
                         params.row.edit = false;
                       }
@@ -112,29 +145,31 @@ export default {
           }
         }
       ],
-      citySituation: [
+      tbData: [
         //全市警情
         {
-          city_alert_total: 100,
-          city_fraud_total: 80,
-          alert_total: 80,
-          fraud_total: 60,
+          name: '张三',
+          gender: 1,
+          birthday: '2019/08/29',
+          city: '1',
+          hobby: [],
           edit: false
         },       
       ],
-      citySituationCopy: [
+      tbDataCopy: [
         //全市警情
         {
-          city_alert_total: 100,
-          city_fraud_total: 80,
-          alert_total: 80,
-          fraud_total: 60,
+          name: '张三',
+          gender: 1,
+          birthday: '2019/08/29',
+          city: '1',
+          hobby: [],
         },
       ],
     };
   },
   methods: {
-    renderRow(h, params, key, copyDataStr) { //全市警情统计表格渲染行
+    renderInput(h, params, key, copyDataStr) {
         if (params.row.edit) {
             return h("Input", {
                 props: {
@@ -161,10 +196,6 @@ export default {
 .data-main {
    height: 100%;
    background-color: #1c3d67;
-  .normal-bg {    
-    border: 1px solid #275c9e;
-    margin-bottom: 20px;
-  }
   .item-head {
     font-size: 18px;
     color: #6ad1fe;
